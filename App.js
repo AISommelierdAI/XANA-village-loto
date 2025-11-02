@@ -409,17 +409,22 @@ export default function App() {
     );
   };
 
+  const ViewContainer = backgroundImage ? ImageBackground : View;
+  const containerProps = backgroundImage ? {
+    source: backgroundImage,
+    resizeMode: 'cover',
+    imageStyle: { 
+      top: 0,
+      left: 0,
+      height: height * 2,
+      width: width * 2,
+    }
+  } : {};
+
   return (
-    <ImageBackground
-      source={backgroundImage || require('./background.png')}
+    <ViewContainer
+      {...containerProps}
       style={styles.container}
-      resizeMode="cover"
-      imageStyle={{ 
-        top: 0,
-        left: 0,
-        height: height * 2,
-        width: width * 2,
-      }}
     >
 
       <View style={styles.gameArea}>
