@@ -16,7 +16,7 @@ const { width, height } = Dimensions.get('window');
 const isWeb = Platform.OS === 'web';
 
 // 画像をコンポーネントの外で定義
-const backgroundImage = require('./background2.png');
+const backgroundImage = require('./background.png');
 
 export default function App() {
   const [gameState, setGameState] = useState({
