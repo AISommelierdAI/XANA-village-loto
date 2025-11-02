@@ -401,7 +401,7 @@ export default function App() {
       style={styles.container}
       resizeMode="cover"
       imageStyle={{ 
-        top: -50,
+        top: 50,
         height: height + 100,
         width: width,
       }}
