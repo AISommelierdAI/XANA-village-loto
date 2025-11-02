@@ -50,6 +50,7 @@ ENV/
 !package.json
 !package-lock.json
 !app.json
+!vercel.json
 *.txt
 !README.md
 !VERCEL_DEPLOY.md
