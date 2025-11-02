@@ -8,10 +8,12 @@ import {
   Dimensions,
   Alert,
   ImageBackground,
+  Platform,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const { width, height } = Dimensions.get('window');
+const isWeb = Platform.OS === 'web';
 
 export default function App() {
   const [gameState, setGameState] = useState({
@@ -369,11 +371,14 @@ export default function App() {
   const ResultModal = () => {
     if (!showResult || !result) return null;
 
+    const ModalContent = isWeb ? View : LinearGradient;
+    const gradientProps = isWeb ? { style: { backgroundColor: '#667eea' } } : { colors: ['#667eea', '#764ba2'] };
+
     return (
       <View style={styles.modalOverlay}>
         <View style={styles.modalContent}>
-          <LinearGradient
-            colors={['#667eea', '#764ba2']}
+          <ModalContent
+            {...gradientProps}
             style={styles.modalGradient}
           >
             <Text style={styles.modalTitle}>🎉 ゲーム完了！</Text>
@@ -389,7 +394,7 @@ export default function App() {
             <TouchableOpacity style={styles.resetButton} onPress={resetGame}>
               <Text style={styles.resetButtonText}>もう一度プレイ</Text>
             </TouchableOpacity>
-          </LinearGradient>
+          </ModalContent>
         </View>
       </View>
     );
@@ -661,6 +666,7 @@ const styles = StyleSheet.create({
   modalGradient: {
     padding: 30,
     alignItems: 'center',
+    backgroundColor: '#667eea', // Web用のフォールバック
   },
   modalTitle: {
     fontSize: 24,
