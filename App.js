@@ -14,7 +14,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 const { width, height } = Dimensions.get('window');
 
 // 画像をコンポーネントの外で定義（Expo Goで必要）
-// 静的requireを使用（動的なパスは使えない）
+// 静的requireを直接使用（最も安全な方法）
 const backgroundImage = require('./background3.png');
 
 export default function App() {
@@ -399,16 +399,22 @@ export default function App() {
     );
   };
 
+  // 画像が読み込めない場合はViewを使用
+  const Container = backgroundImage ? ImageBackground : View;
+  const containerProps = backgroundImage ? {
+    source: backgroundImage,
+    resizeMode: 'cover',
+    imageStyle: { 
+      top: -50,
+      height: height + 100,
+      width: width,
+    }
+  } : {};
+
   return (
-    <ImageBackground
-      source={backgroundImage}
+    <Container
+      {...containerProps}
       style={styles.container}
-      resizeMode="cover"
-      imageStyle={{ 
-        top: -50,
-        height: height + 100,
-        width: width,
-      }}
     >
 
       <View style={styles.gameArea}>
@@ -464,7 +470,7 @@ export default function App() {
       </View>
 
       <ResultModal />
-    </ImageBackground>
+    </Container>
   );
 }
 
