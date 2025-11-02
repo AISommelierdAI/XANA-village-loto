@@ -9,18 +9,12 @@ import {
   Alert,
   ImageBackground,
 } from 'react-native';
-// LinearGradientを安全にインポート
-let LinearGradient;
-try {
-  LinearGradient = require('expo-linear-gradient').LinearGradient;
-} catch (error) {
-  console.warn('LinearGradient not available:', error);
-  LinearGradient = View; // フォールバックとしてViewを使用
-}
+import { LinearGradient } from 'expo-linear-gradient';
 
 const { width, height } = Dimensions.get('window');
 
 // 画像をコンポーネントの外で定義（Expo Goで必要）
+// 静的requireを使用（動的なパスは使えない）
 const backgroundImage = require('./background3.png');
 
 export default function App() {
