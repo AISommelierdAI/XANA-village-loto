@@ -397,7 +397,7 @@ export default function App() {
 
   return (
     <ImageBackground
-      source={require('./background.png')}
+      source={require('./background2.png')}
       style={styles.container}
       resizeMode="cover"
       imageStyle={{ 
