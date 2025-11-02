@@ -15,6 +15,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 const { width, height } = Dimensions.get('window');
 const isWeb = Platform.OS === 'web';
 
+// 画像をコンポーネントの外で定義
+const backgroundImage = require('./background2.png');
+
 export default function App() {
   const [gameState, setGameState] = useState({
     currentStep: 1,
