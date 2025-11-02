@@ -395,9 +395,11 @@ export default function App() {
     );
   };
 
+  const backgroundImage = require('./background2.png');
+  
   return (
     <ImageBackground
-      source={require('./background2.png')}
+      source={backgroundImage}
       style={styles.container}
       resizeMode="cover"
       imageStyle={{ 
