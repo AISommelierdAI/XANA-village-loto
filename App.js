@@ -9,7 +9,14 @@ import {
   Alert,
   ImageBackground,
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+// LinearGradientを安全にインポート
+let LinearGradient;
+try {
+  LinearGradient = require('expo-linear-gradient').LinearGradient;
+} catch (error) {
+  console.warn('LinearGradient not available:', error);
+  LinearGradient = View; // フォールバックとしてViewを使用
+}
 
 const { width, height } = Dimensions.get('window');
 
