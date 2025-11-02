@@ -13,6 +13,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 const { width, height } = Dimensions.get('window');
 
+// 画像をコンポーネントの外で定義（Expo Goで必要）
+const backgroundImage = require('./background3.png');
+
 export default function App() {
   const [gameState, setGameState] = useState({
     currentStep: 1,
@@ -397,7 +400,7 @@ export default function App() {
 
   return (
     <ImageBackground
-      source={require('./background3.png')}
+      source={backgroundImage}
       style={styles.container}
       resizeMode="cover"
       imageStyle={{ 
