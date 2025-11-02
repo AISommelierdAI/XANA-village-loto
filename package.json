@@ -3,13 +3,12 @@
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "preinstall": "echo 'Using legacy-peer-deps'",
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "build": "npx expo export -p web --clear",
-    "build:web": "npx expo export -p web --clear"
+    "build": "npx expo export -p web",
+    "build:web": "npx expo export -p web"
   },
   "dependencies": {
     "@expo/metro-runtime": "~4.0.1",
