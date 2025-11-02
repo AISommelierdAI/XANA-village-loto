@@ -8,21 +8,10 @@ import {
   Dimensions,
   Alert,
   ImageBackground,
-  Platform,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const { width, height } = Dimensions.get('window');
-const isWeb = Platform.OS === 'web';
-
-// 画像をコンポーネントの外で定義（エラー回避のためtry-catchで包む）
-let backgroundImage;
-try {
-  backgroundImage = require('./background.png');
-} catch (error) {
-  console.warn('Background image not found:', error);
-  backgroundImage = null;
-}
 
 export default function App() {
   const [gameState, setGameState] = useState({
@@ -380,14 +369,11 @@ export default function App() {
   const ResultModal = () => {
     if (!showResult || !result) return null;
 
-    const ModalContent = isWeb ? View : LinearGradient;
-    const gradientProps = isWeb ? { style: { backgroundColor: '#667eea' } } : { colors: ['#667eea', '#764ba2'] };
-
     return (
       <View style={styles.modalOverlay}>
         <View style={styles.modalContent}>
-          <ModalContent
-            {...gradientProps}
+          <LinearGradient
+            colors={['#667eea', '#764ba2']}
             style={styles.modalGradient}
           >
             <Text style={styles.modalTitle}>🎉 ゲーム完了！</Text>
@@ -403,28 +389,22 @@ export default function App() {
             <TouchableOpacity style={styles.resetButton} onPress={resetGame}>
               <Text style={styles.resetButtonText}>もう一度プレイ</Text>
             </TouchableOpacity>
-          </ModalContent>
+          </LinearGradient>
         </View>
       </View>
     );
   };
 
-  const ViewContainer = backgroundImage ? ImageBackground : View;
-  const containerProps = backgroundImage ? {
-    source: backgroundImage,
-    resizeMode: 'cover',
-    imageStyle: { 
-      top: 0,
-      left: 0,
-      height: height * 2,
-      width: width * 2,
-    }
-  } : {};
-
   return (
-    <ViewContainer
-      {...containerProps}
+    <ImageBackground
+      source={require('./background3.png')}
       style={styles.container}
+      resizeMode="cover"
+      imageStyle={{ 
+        top: -50,
+        height: height + 100,
+        width: width,
+      }}
     >
 
       <View style={styles.gameArea}>
@@ -480,14 +460,14 @@ export default function App() {
       </View>
 
       <ResultModal />
-    </ViewContainer>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 0,
+    paddingTop: 50,
     width: '100%',
     height: '100%',
     justifyContent: 'flex-start',
@@ -513,7 +493,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 0,
+    marginTop: 40,
   },
   bottomArea: {
     paddingHorizontal: 20,
@@ -530,7 +510,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginBottom: 40,
-    marginTop: 0,
+    marginTop: 40,
   },
   diceItem: {
     marginHorizontal: 10,
@@ -678,7 +658,6 @@ const styles = StyleSheet.create({
   modalGradient: {
     padding: 30,
     alignItems: 'center',
-    backgroundColor: '#667eea', // Web用のフォールバック
   },
   modalTitle: {
     fontSize: 24,
