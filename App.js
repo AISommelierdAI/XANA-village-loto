@@ -467,7 +467,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 50,
+    paddingTop: 0,
     width: '100%',
     height: '100%',
     justifyContent: 'flex-start',
@@ -493,7 +493,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 40,
+    marginTop: 0,
   },
   bottomArea: {
     paddingHorizontal: 20,
@@ -510,7 +510,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginBottom: 40,
-    marginTop: 40,
+    marginTop: 0,
   },
   diceItem: {
     marginHorizontal: 10,
