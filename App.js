@@ -266,10 +266,22 @@ export default function App() {
 
   // サイコロ表示コンポーネント（桃鉄風コロコロ回転）
   const DiceDisplay = React.memo(({ diceIndex, number, isAnimating }) => {
-    const [currentDisplayNumber, setCurrentDisplayNumber] = useState(number ? String(number) : '?');
+    const [currentDisplayNumber, setCurrentDisplayNumber] = useState(
+      number && number >= 1 && number <= 6 ? String(number) : '?'
+    );
     const [isRolling, setIsRolling] = useState(false);
     const [finalNumber, setFinalNumber] = useState(null);
     const [hasCompleted, setHasCompleted] = useState(false);
+
+    // numberがundefinedまたはnullになったら、内部状態をリセット
+    useEffect(() => {
+      if (!number) {
+        setHasCompleted(false);
+        setFinalNumber(null);
+        setCurrentDisplayNumber('?');
+        setIsRolling(false);
+      }
+    }, [number]);
 
     // アニメーション値を監視して表示数字を更新
     useEffect(() => {
@@ -308,9 +320,11 @@ export default function App() {
           clearInterval(rotationInterval);
           clearInterval(speedUpdater);
           // 最後の瞬間までランダムな数字を表示（目標とは違う数字）
-          const wrongNumbers = diceFaces.filter((_, index) => index !== (number - 1));
-          const finalRandomIndex = Math.floor(Math.random() * wrongNumbers.length);
-          setCurrentDisplayNumber(wrongNumbers[finalRandomIndex]);
+          if (number && number >= 1 && number <= 6) {
+            const wrongNumbers = diceFaces.filter((_, index) => index !== (number - 1));
+            const finalRandomIndex = Math.floor(Math.random() * wrongNumbers.length);
+            setCurrentDisplayNumber(wrongNumbers[finalRandomIndex]);
+          }
         }, 4800); // 約4.8秒アニメーション終了の200ms前まで回転
 
         return () => {
@@ -320,20 +334,23 @@ export default function App() {
         };
       } else {
         setIsRolling(false);
-        if (number && !hasCompleted) {
+        if (number && number >= 1 && number <= 6 && !hasCompleted) {
           const diceFaces = ['1', '2', '3', '4', '5', '6'];
           // アニメーション完了時に最終結果を表示
           setTimeout(() => {
-            setFinalNumber(diceFaces[number - 1]);
-            setCurrentDisplayNumber(diceFaces[number - 1]);
-            setHasCompleted(true);
+            const finalValue = diceFaces[number - 1];
+            if (finalValue) {
+              setFinalNumber(finalValue);
+              setCurrentDisplayNumber(finalValue);
+              setHasCompleted(true);
+            }
           }, 100); // 少し遅延させて最終結果を表示
         } else if (!number && !hasCompleted) {
           setCurrentDisplayNumber('?');
           setHasCompleted(false);
         }
       }
-    }, [diceIndex, isAnimating, hasCompleted]);
+    }, [diceIndex, isAnimating, hasCompleted, number]);
 
     // 完了したリールの表示を即座に更新
     useEffect(() => {
