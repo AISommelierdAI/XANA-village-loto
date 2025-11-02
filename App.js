@@ -402,8 +402,9 @@ export default function App() {
       resizeMode="cover"
       imageStyle={{ 
         top: 0,
-        height: height * 0.5,
-        width: width * 0.5,
+        left: 0,
+        height: height,
+        width: width,
       }}
     >
 
