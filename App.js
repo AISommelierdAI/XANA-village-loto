@@ -411,7 +411,7 @@ export default function App() {
 
   return (
     <ImageBackground
-      source={backgroundImage}
+      source={backgroundImage || require('./background.png')}
       style={styles.container}
       resizeMode="cover"
       imageStyle={{ 
