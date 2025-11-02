@@ -403,8 +403,6 @@ export default function App() {
     );
   };
 
-  const backgroundImage = require('./background2.png');
-  
   return (
     <ImageBackground
       source={backgroundImage}
