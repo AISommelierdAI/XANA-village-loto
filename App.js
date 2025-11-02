@@ -15,8 +15,14 @@ import { LinearGradient } from 'expo-linear-gradient';
 const { width, height } = Dimensions.get('window');
 const isWeb = Platform.OS === 'web';
 
-// 画像をコンポーネントの外で定義
-const backgroundImage = require('./background.png');
+// 画像をコンポーネントの外で定義（エラー回避のためtry-catchで包む）
+let backgroundImage;
+try {
+  backgroundImage = require('./background.png');
+} catch (error) {
+  console.warn('Background image not found:', error);
+  backgroundImage = null;
+}
 
 export default function App() {
   const [gameState, setGameState] = useState({
