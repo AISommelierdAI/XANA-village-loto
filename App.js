@@ -410,8 +410,8 @@ export default function App() {
       imageStyle={{ 
         top: 0,
         left: 0,
-        height: height,
-        width: width,
+        height: height * 2,
+        width: width * 2,
       }}
     >
 
